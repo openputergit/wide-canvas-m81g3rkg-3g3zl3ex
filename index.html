@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZenFlow - Your Personal Yoga & Wellness Guide</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* Skeuomorphic Styles */
+        .skeuo-card {
+            background: linear-gradient(145deg, #ffffff 0%, #f0f0f0 100%);
+            box-shadow: 8px 8px 16px #d1d1d1, -8px -8px 16px #ffffff;
+            border-radius: 20px;
+        }
+        .skeuo-button {
+            background: linear-gradient(145deg, #f0f0f0, #ffffff);
+            box-shadow: 5px 5px 10px #d1d1d1, -5px -5px 10px #ffffff;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+        .skeuo-button:active {
+            box-shadow: inset 5px 5px 10px #d1d1d1, inset -5px -5px 10px #ffffff;
+        }
+        .timer-display {
+            font-family: 'Digital-7', monospace;
+            background: #2c3e50;
+            color: #2ecc71;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+        }
+        .meditation-player {
+            background: linear-gradient(145deg, #2c3e50, #34495e);
+            border-radius: 15px;
+            padding: 20px;
+            color: white;
+        }
+        .progress-bar {
+            height: 20px;
+            background: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #2ecc71, #27ae60);
+            transition: width 0.3s ease;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen font-[Poppins]">
+    <!-- Navigation -->
+    <nav class="skeuo-card p-4 m-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-3xl font-[Playfair Display] font-bold text-teal-600">ZenFlow</h1>
+            <div class="space-x-6">
+                <button class="skeuo-button px-4 py-2">Home</button>
+                <button class="skeuo-button px-4 py-2">Yoga</button>
+                <button class="skeuo-button px-4 py-2">Meditation</button>
+                <button class="skeuo-button px-4 py-2">Health</button>
+                <button class="skeuo-button px-4 py-2">Profile</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mx-auto p-4">
+        <!-- Yoga Section -->
+        <section class="skeuo-card p-6 mb-8">
+            <h2 class="text-2xl font-semibold mb-4">Your Personalized Yoga Routine</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Yoga Card 1 -->
+                <div class="skeuo-card p-4">
+                    <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b" alt="Yoga Pose" class="w-full h-48 object-cover rounded-lg mb-4">
+                    <h3 class="text-xl font-semibold mb-2">Morning Flow</h3>
+                    <p class="mb-4">20 minutes of energizing poses to start your day</p>
+                    <div class="timer-display text-center text-2xl mb-4">20:00</div>
+                    <button class="skeuo-button w-full py-2" onclick="startTimer(1200)">Start Practice</button>
+                </div>
+
+                <!-- Yoga Card 2 -->
+                <div class="skeuo-card p-4">
+                    <img src="https://images.unsplash.com/photo-1510894347713-fc3ed6fdf539" alt="Yoga Pose" class="w-full h-48 object-cover rounded-lg mb-4">
+                    <h3 class="text-xl font-semibold mb-2">Flexibility Focus</h3>
+                    <p class="mb-4">30 minutes of deep stretching sequences</p>
+                    <div class="timer-display text-center text-2xl mb-4">30:00</div>
+                    <button class="skeuo-button w-full py-2" onclick="startTimer(1800)">Start Practice</button>
+                </div>
+
+                <!-- Yoga Card 3 -->
+                <div class="skeuo-card p-4">
+                    <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773" alt="Yoga Pose" class="w-full h-48 object-cover rounded-lg mb-4">
+                    <h3 class="text-xl font-semibold mb-2">Power Yoga</h3>
+                    <p class="mb-4">45 minutes of strength-building poses</p>
+                    <div class="timer-display text-center text-2xl mb-4">45:00</div>
+                    <button class="skeuo-button w-full py-2" onclick="startTimer(2700)">Start Practice</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Meditation Section -->
+        <section class="skeuo-card p-6 mb-8">
+            <h2 class="text-2xl font-semibold mb-4">Meditation & Relaxation</h2>
+            <div class="meditation-player mb-6">
+                <h3 class="text-xl mb-4">Peaceful Morning Meditation</h3>
+                <audio id="meditationAudio" controls class="w-full">
+                    <source src="meditation.mp3" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+            </div>
+        </section>
+
+        <!-- Health Services Section -->
+        <section class="skeuo-card p-6 mb-8">
+            <h2 class="text-2xl font-semibold mb-4">Health Services</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Doctor Appointment -->
+                <div class="skeuo-card p-4">
+                    <h3 class="text-xl font-semibold mb-2"><i class="bi bi-calendar-check"></i> Book Doctor Appointment</h3>
+                    <form class="space-y-4">
+                        <input type="text" placeholder="Select Doctor" class="w-full p-2 rounded">
+                        <input type="date" class="w-full p-2 rounded">
+                        <button class="skeuo-button w-full py-2">Book Now</button>
+                    </form>
+                </div>
+
+                <!-- AI Health Chat -->
+                <div class="skeuo-card p-4">
+                    <h3 class="text-xl font-semibold mb-2"><i class="bi bi-chat-dots"></i> AI Health Assistant</h3>
+                    <div class="h-40 bg-white rounded p-4 mb-4 overflow-y-auto" id="chatbox"></div>
+                    <div class="flex gap-2">
+                        <input type="text" id="userInput" placeholder="Ask about your health..." class="flex-1 p-2 rounded">
+                        <button onclick="sendMessage()" class="skeuo-button px-4">Send</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Progress Tracking -->
+        <section class="skeuo-card p-6">
+            <h2 class="text-2xl font-semibold mb-4">Your Progress</h2>
+            <div class="space-y-4">
+                <div>
+                    <h3 class="mb-2">Weekly Goals</h3>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 75%"></div>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="mb-2">Meditation Minutes</h3>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 60%"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Timer functionality
+        function startTimer(seconds) {
+            let timer = seconds;
+            const interval = setInterval(() => {
+                const minutes = Math.floor(timer / 60);
+                const remainingSeconds = timer % 60;
+                const display = `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
+                document.querySelector('.timer-display').textContent = display;
+                
+                if (--timer < 0) {
+                    clearInterval(interval);
+                    alert('Practice complete!');
+                }
+            }, 1000);
+        }
+
+        // AI Chat functionality
+        async function sendMessage() {
+            const userInput = document.getElementById('userInput');
+            const chatbox = document.getElementById('chatbox');
+            const message = userInput.value;
+            
+            if (!message) return;
+
+            // Add user message
+            chatbox.innerHTML += `<p class="mb-2"><strong>You:</strong> ${message}</p>`;
+            userInput.value = '';
+
+            // Show loading
+            chatbox.innerHTML += `<p class="mb-2"><strong>AI:</strong> Thinking...</p>`;
+
+            try {
+                const response = await fetch('https://r0c8kgwocscg8gsokogwwsw4.zetaverse.one/ai', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': 'Bearer GuAjOcNDBBVk6sgYqQlgCPobkqp2',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        messages: [{
+                            role: "user",
+                            content: [{
+                                type: "text",
+                                text: message
+                            }]
+                        }]
+                    })
+                });
+
+                const data = await response.json();
+                // Remove loading message and add AI response
+                chatbox.innerHTML = chatbox.innerHTML.replace('<p class="mb-2"><strong>AI:</strong> Thinking...</p>', 
+                    `<p class="mb-2"><strong>AI:</strong> ${data.message}</p>`);
+            } catch (error) {
+                console.error('Error:', error);
+                chatbox.innerHTML = chatbox.innerHTML.replace('<p class="mb-2"><strong>AI:</strong> Thinking...</p>', 
+                    `<p class="mb-2 text-red-500"><strong>Error:</strong> Failed to get response</p>`);
+            }
+            
+            chatbox.scrollTop = chatbox.scrollHeight;
+        }
+
+        // Handle enter key in chat
+        document.getElementById('userInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+    </script>
+<script>document.body.addEventListener('wheel', e => { if (!e.ctrlKey) return; e.preventDefault(); return }, { passive: false })</script>
+	</body>
+</html>
